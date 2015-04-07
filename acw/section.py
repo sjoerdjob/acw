@@ -1,7 +1,37 @@
 from ConfigParser import NoSectionError, NoOptionError
 
+from acw.types import Type
+
+
+def get_fields(attributes):
+    fields = {}
+    for key, value in attributes.items():
+        if isinstance(value, Type):
+            fields[key] = value
+            del attributes[key]
+    return fields
+
+
+def get_name(name):
+    if name.endswith('ConfigSection'):
+        # Strip off the 'ConfigSection' part.
+        name = name[:-13]
+
+    # We may want to do some PascalCase -> SnakeCase conversion here later.
+    # For now, this suffices.
+    return name.lower()
+
+
+class ConfigSectionMeta(type):
+    def __new__(cls, name, bases, attrs):
+        attrs['_options'] = get_fields(attrs)
+        attrs.setdefault('_name', get_name(name))
+        return super(ConfigSectionMeta, cls).__new__(cls, name, bases, attrs)
+
 
 class ConfigSection(object):
+    __metaclass__ = ConfigSectionMeta
+
     def __init__(self, config):
         self.__dict__['_config'] = config
 

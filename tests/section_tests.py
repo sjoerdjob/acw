@@ -6,12 +6,9 @@ from ConfigParser import ConfigParser
 from StringIO import StringIO
 
 
-class SillySection(ConfigSection):
-    _name = 'silly'
-    _options = {
-        'foo': IntegerType(),
-        'bar': IntegerType(5),
-    }
+class SillyConfigSection(ConfigSection):
+    foo = IntegerType()
+    bar = IntegerType(5)
 
 
 def test_config_section_get_integer():
@@ -21,7 +18,7 @@ def test_config_section_get_integer():
 foo = 1
 bar = 2
 """))
-    c = SillySection(config)
+    c = SillyConfigSection(config)
     assert c.foo == 1
     assert c.bar == 2
 
@@ -32,7 +29,7 @@ def test_config_section_get_defaulted():
 [silly]
 foo = 1
 """))
-    c = SillySection(config)
+    c = SillyConfigSection(config)
     assert c.bar == 5
 
 
@@ -42,7 +39,7 @@ def test_set_integer_to_config():
 [silly]
 foo = 1
 """))
-    c = SillySection(config)
+    c = SillyConfigSection(config)
     c.bar = 2
     fp = StringIO()
     config.write(fp)

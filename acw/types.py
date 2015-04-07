@@ -1,4 +1,8 @@
-class IntegerType(object):
+class Type(object):
+    pass
+
+
+class IntegerType(Type):
     def __init__(self, default=None):
         if default is not None:
             if not isinstance(default, (int, long)):
