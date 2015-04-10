@@ -1,6 +1,6 @@
 from ConfigParser import NoSectionError, NoOptionError
 
-from acw.types import Type
+from .types import Type
 
 
 def get_fields(attributes):
@@ -32,7 +32,8 @@ class ConfigSectionMeta(type):
 class ConfigSection(object):
     __metaclass__ = ConfigSectionMeta
 
-    def __init__(self, config):
+    def __init__(self, name, config):
+        self.__dict__['_name'] = name
         self.__dict__['_config'] = config
 
     def __getattr__(self, option):
