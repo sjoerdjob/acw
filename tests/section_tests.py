@@ -33,12 +33,12 @@ foo = 1
     assert c.bar == 5
 
 
-    def test_set_integer_to_config():
-        config = ConfigParser()
-        config.readfp(StringIO("""
-    [silly]
-    foo = 1
-    """))
+def test_set_integer_to_config():
+    config = ConfigParser()
+    config.readfp(StringIO("""
+[silly]
+foo = 1
+"""))
     c = SillyConfigSection('silly', config)
     c.bar = 2
     fp = StringIO()
