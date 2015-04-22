@@ -19,6 +19,12 @@ def test_int_type_dumps():
     assert t.dumps(1) == "1"
 
 
+@raises(ValueError)
+def test_int_type_dumps_noninteger():
+    t = IntegerType()
+    t.dumps("1")
+
+
 def test_int_type_default_set():
     t = IntegerType(1)
     assert t.default == 1

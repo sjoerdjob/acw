@@ -5,6 +5,12 @@ class Type(object):
                 raise ValueError
             self.default = default
 
+    def dumps(self, val):
+        if not self.validate(val):
+            raise ValueError
+        else:
+            return self._dumps(val)
+
 
 class IntegerType(Type):
     def validate(self, value):
@@ -13,5 +19,5 @@ class IntegerType(Type):
     def loads(self, raw):
         return int(raw)
 
-    def dumps(self, val):
+    def _dumps(self, val):
         return str(val)
