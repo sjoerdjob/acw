@@ -11,6 +11,12 @@ class Type(object):
         else:
             return self._dumps(val)
 
+    def validate(self, value):
+        raise NotImplementedError
+
+    def _dumps(self, val):
+        raise NotImplementedError
+
 
 class IntegerType(Type):
     def validate(self, value):
