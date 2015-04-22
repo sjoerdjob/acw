@@ -21,3 +21,14 @@ class IntegerType(Type):
 
     def _dumps(self, val):
         return str(val)
+
+
+class StringType(Type):
+    def validate(self, value):
+        return isinstance(value, str)
+
+    def loads(self, raw):
+        return raw
+
+    def _dumps(self, val):
+        return val
