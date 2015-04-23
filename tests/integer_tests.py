@@ -23,19 +23,3 @@ def test_int_type_dumps():
 def test_int_type_dumps_noninteger():
     t = IntegerType()
     t.dumps("1")
-
-
-def test_int_type_default_set():
-    t = IntegerType(1)
-    assert t.default == 1
-
-
-@raises(AttributeError)
-def test_int_type_default_unset():
-    t = IntegerType()
-    t.default
-
-
-@raises(ValueError)
-def test_int_type_default_wrong_type():
-    IntegerType("1")
