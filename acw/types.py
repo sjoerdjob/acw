@@ -38,3 +38,26 @@ class StringType(Type):
 
     def _dumps(self, val):
         return val
+
+
+class BooleanType(Type):
+    TRUE_VALUES = ('true', 't', 'yes', 'y', '1')
+    FALSE_VALUES = ('false', 'f', 'no', 'n', '0')
+
+
+    def validate(self, value):
+        # Even though it is normal to consider just any value as proper input,
+        # it is my belief that here it is best to explicitly require boolean
+        # values.
+        return isinstance(value, bool)
+
+    def loads(self, raw):
+        lower_raw = raw.lower()
+        if lower_raw in self.TRUE_VALUES:
+            return True
+        if lower_raw in self.FALSE_VALUES:
+            return False
+        raise ValueError("Value {} does not look like a boolean".format(raw))
+
+    def _dumps(self, val):
+        return str(val)
