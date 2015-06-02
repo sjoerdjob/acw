@@ -12,9 +12,9 @@ def get_fields(attributes):
 
 
 class ConfigMeta(type):
-    def __new__(cls, name, bases, attrs):
+    def __new__(mcs, name, bases, attrs):
         attrs['_sections'] = get_fields(attrs)
-        return super(ConfigMeta, cls).__new__(cls, name, bases, attrs)
+        return super(ConfigMeta, mcs).__new__(mcs, name, bases, attrs)
 
 
 class Config(object):

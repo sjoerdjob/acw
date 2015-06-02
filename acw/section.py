@@ -23,10 +23,10 @@ def get_name(name):
 
 
 class ConfigSectionMeta(type):
-    def __new__(cls, name, bases, attrs):
+    def __new__(mcs, name, bases, attrs):
         attrs['_options'] = get_fields(attrs)
         attrs.setdefault('_name', get_name(name))
-        return super(ConfigSectionMeta, cls).__new__(cls, name, bases, attrs)
+        return super(ConfigSectionMeta, mcs).__new__(mcs, name, bases, attrs)
 
 
 class ConfigSection(object):
