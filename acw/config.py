@@ -4,7 +4,6 @@ from .section import ConfigSection
 def _get_fields(attributes):
     fields = {}
     for key, value in attributes.items():
-        print key, value
         if isinstance(value, type) and issubclass(value, ConfigSection):
             fields[key] = value
             del attributes[key]
