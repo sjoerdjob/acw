@@ -44,7 +44,6 @@ class BooleanType(Type):
     TRUE_VALUES = ('true', 't', 'yes', 'y', '1')
     FALSE_VALUES = ('false', 'f', 'no', 'n', '0')
 
-
     def validate(self, value):
         # Even though it is normal to consider just any value as proper input,
         # it is my belief that here it is best to explicitly require boolean
