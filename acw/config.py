@@ -1,7 +1,7 @@
 from .section import ConfigSection
 
 
-def get_fields(attributes):
+def _get_fields(attributes):
     fields = {}
     for key, value in attributes.items():
         print key, value
@@ -11,14 +11,14 @@ def get_fields(attributes):
     return fields
 
 
-class ConfigMeta(type):
+class _ConfigMeta(type):
     def __new__(mcs, name, bases, attrs):
-        attrs['_sections'] = get_fields(attrs)
-        return super(ConfigMeta, mcs).__new__(mcs, name, bases, attrs)
+        attrs['_sections'] = _get_fields(attrs)
+        return super(_ConfigMeta, mcs).__new__(mcs, name, bases, attrs)
 
 
 class Config(object):
-    __metaclass__ = ConfigMeta
+    __metaclass__ = _ConfigMeta
 
     def __init__(self, config):
         self._config = config

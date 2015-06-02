@@ -3,7 +3,7 @@ from ConfigParser import NoSectionError, NoOptionError
 from .types import Type
 
 
-def get_fields(attributes):
+def _get_fields(attributes):
     fields = {}
     for key, value in attributes.items():
         if isinstance(value, Type):
@@ -12,7 +12,7 @@ def get_fields(attributes):
     return fields
 
 
-def get_name(name):
+def _get_name(name):
     if name.endswith('ConfigSection'):
         # Strip off the 'ConfigSection' part.
         name = name[:-13]
@@ -22,15 +22,15 @@ def get_name(name):
     return name.lower()
 
 
-class ConfigSectionMeta(type):
+class _ConfigSectionMeta(type):
     def __new__(mcs, name, bases, attrs):
-        attrs['_options'] = get_fields(attrs)
-        attrs.setdefault('_name', get_name(name))
-        return super(ConfigSectionMeta, mcs).__new__(mcs, name, bases, attrs)
+        attrs['_options'] = _get_fields(attrs)
+        attrs.setdefault('_name', _get_name(name))
+        return super(_ConfigSectionMeta, mcs).__new__(mcs, name, bases, attrs)
 
 
 class ConfigSection(object):
-    __metaclass__ = ConfigSectionMeta
+    __metaclass__ = _ConfigSectionMeta
 
     def __init__(self, name, config):
         self.__dict__['_name'] = name
