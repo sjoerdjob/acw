@@ -36,6 +36,21 @@ class ConfigSection(object):
         self.__dict__['_name'] = name
         self.__dict__['_config'] = config
 
+    def is_valid(self):
+        for option, option_desc in self._options.iteritems():
+            try:
+                raw_value = self._config.get(self._name, option)
+            except (NoSectionError, NoOptionError):
+                if not hasattr(option_desc, 'default'):
+                    return False
+            else:
+                try:
+                    option_desc.loads(raw_value)
+                except ValueError:
+                    return False
+
+        return True
+
     def __getattr__(self, option):
         assert option in self._options, option
         option_desc = self._options[option]

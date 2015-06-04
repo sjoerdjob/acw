@@ -49,3 +49,31 @@ foo = 1
 bar = 2
 
 """.lstrip(), "#" + fp.getvalue() + "#"
+
+
+def test_validate_valid_section():
+    config = ConfigParser()
+    config.readfp(StringIO("""
+[silly]
+foo = 1
+"""))
+    c = SillyConfigSection('silly', config)
+    assert c.is_valid()
+
+def test_validate_with_missing_value():
+    config = ConfigParser()
+    config.readfp(StringIO("""
+[silly]
+"""))
+    c = SillyConfigSection('silly', config)
+    assert not c.is_valid()
+
+def test_validate_with_invalid_value():
+    config = ConfigParser()
+    config.readfp(StringIO("""
+[silly]
+foo = 1
+bar = bonkers
+"""))
+    c = SillyConfigSection('silly', config)
+    assert not c.is_valid()
