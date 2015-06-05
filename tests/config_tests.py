@@ -54,3 +54,13 @@ foo = 1
 bar = 2
 
 """.lstrip(), "#" + fp.getvalue() + "#"
+
+
+def test_valid_invalid():
+    config = ConfigParser()
+    config.readfp(StringIO("""
+[silly]
+foo = 1
+"""))
+    c = SillyConfig(config)
+    assert c.is_valid()

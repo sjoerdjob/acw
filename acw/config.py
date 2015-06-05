@@ -27,3 +27,10 @@ class Config(object):
 
     def __getattr__(self, name):
         return self._sections[name]
+
+    def is_valid(self):
+        for section in self._sections.itervalues():
+            if not section.is_valid():
+                return False
+        else:
+            return True
